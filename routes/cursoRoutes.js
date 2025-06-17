@@ -9,11 +9,11 @@ const router = express.Router();
 router.param('id', validateId);
 
 // Rutas CRUD
-router.get('/', cursoController.getCursosMatematicos);
-router.post('/', validateCurso(true), cursoController.createCursoMatematico);
-router.get('/:id', cursoController.getCursoMatematicoById);
-router.put('/:id', validateCurso(false), cursoController.updateCursoMatematico);
-router.delete('/:id', cursoController.deleteCursoMatematico);
+router.get('/', cursoController.getCursos);
+router.post('/', validateCurso(true), cursoController.createCurso);
+router.get('/:id', cursoController.getCursoById);
+router.put('/:id', validateCurso(false), cursoController.updateCurso);
+router.delete('/:id', cursoController.deleteCurso);
 
 // Rutas adicionales
 router.get('/orden/ascendente', cursoController.getCursosOrdenAscendente);

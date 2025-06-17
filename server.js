@@ -14,12 +14,12 @@ app.use((req, res, next) => {
   next();
 });
 
-// Rutas
-app.use('/cursos/matematica', cursoRouter);
+// Rutas para cursos
+app.use('/cursos', cursoRouter);
 
 // Ruta de prueba
 app.get('/', (req, res) => {
-  res.send('API de Cursos de Matemáticas - CRUD Completo');
+  res.send('API de Gestión de Cursos - CRUD Completo');
 });
 
 // Middleware para manejar 404

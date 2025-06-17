@@ -39,6 +39,13 @@ export const validateCurso = (isCreation) => (req, res, next) => {
     )}`;
   }
 
+  // Validar materia
+  if (!curso.materia || curso.materia.trim() === '') {
+    errors.materia = 'La materia es obligatoria';
+  } else if (curso.materia.length < 3) {
+    errors.materia = 'La materia debe tener al menos 3 caracteres';
+  }
+
   // Validación específica para actualización
   if (!isCreation) {
     if (curso.id === undefined || curso.id === null) {

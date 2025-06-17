@@ -1,156 +1,278 @@
 # API de Gestión de Cursos
 
-## Descripción
-API RESTful para gestionar cursos con operaciones CRUD completas. Permite crear, leer, actualizar y eliminar cursos, además de ordenarlos por visitas y validar los datos de entrada. con Node.js y Express.
 
-## Tecnologías Utilizadas
-- **Node.js**: Entorno de ejecución JavaScript
-- **Express**: Framework para APIs REST
-- **JavaScript ES6+**: Sintaxis moderna
-- **Insomnia**: Cliente para pruebas de API
+## Descripción  
+API RESTful para la gestión integral de cursos académicos de cualquier materia y permite crear cursos de cualquier disciplina académica. Ofrece operaciones CRUD completas con validación de datos, ordenamiento por visitas y manejo profesional de errores.
 
-## Características Principales
-- ✅ Operaciones CRUD completas (GET, POST, PUT, DELETE)
-- ✅ Validación robusta de datos
-- ✅ Ordenamiento por visitas (ascendente/descendente)
-- ✅ Manejo profesional de errores
-- ✅ Filtrado automático de cursos matemáticos
-- ✅ Sin base de datos (almacenamiento en memoria)
+## Características Clave  
+✅ **CRUD completo** para cualquier curso académico  
+✅ **Ordenamiento** por número de visitas (ascendente/descendente)  
+✅ **Validación robusta** de datos  
+✅ **Manejo profesional** de errores  
+✅ **Almacenamiento en memoria**  
+✅ **Soporte para cualquier materia académica**  
+
+## Tecnologías Utilizadas  
+- **Node.js v18+**: Entorno de ejecución JavaScript  
+- **Express.js**: Framework para APIs REST  
+- **JavaScript ES6+**: Sintaxis moderna  
+- **Insomnia**: Para pruebas de API  
+
+## Estructura del Proyecto  
+```
+proyecto-cursos/
+├── controllers/ # Lógica de controladores
+│ └── cursoController.js
+├── middlewares/ # Middlewares personalizados
+│ ├── errorHandler.js
+│ ├── idValidator.js
+│ └── cursoValidator.js
+├── models/ # Modelos de datos
+│ └── cursoModel.js # Contiene 8 cursos de matemáticas predefinidos
+├── routes/ # Definición de rutas
+│ └── cursoRoutes.js
+├── utils/ # Funciones utilitarias
+│ └── sortUtils.js
+├── server.js # Punto de entrada principal
+├── package.json # Gestión de dependencias
+└── README.md # Documentación
+```
 
 ## Instalación y Uso
 
-### Prerequisitos
-- Node.js v18+
-- npm v9+
+### Prerequisitos  
+- Node.js v18+  
+- npm v9+  
 
-### Pasos de Instalación
-1. Clonar el repositorio:
+### Pasos de Instalación  
+1. Clonar el repositorio:  
 ```bash
 git clone https://github.com/Carloseduardo27/CRUD-cours.git
 cd CRUD-cours
 ```
 
-2. Instalar dependencias:
+2. Instalar dependencias:  
 ```bash
 npm install
 ```
 
-3. Iniciar el servidor:
+3. Iniciar el servidor:  
 ```bash
 npm start
 ```
 
-4. Verificar funcionamiento:
+4. Verificar funcionamiento:  
 ```bash
 curl http://localhost:3000
-# Deberías ver: "API de Cursos de Matemáticas - CRUD Completo"
+# Respuesta esperada: "API de Gestión de Cursos - CRUD Completo"
 ```
 
 ## Endpoints Disponibles
 
 | Método | Endpoint | Descripción |
 |--------|----------|-------------|
-| GET | `/cursos/matematica` | Obtener todos los cursos |
-| POST | `/cursos/matematica` | Crear nuevo curso |
-| GET | `/cursos/matematica/:id` | Obtener curso específico |
-| PUT | `/cursos/matematica/:id` | Actualizar curso |
-| DELETE | `/cursos/matematica/:id` | Eliminar curso |
-| GET | `/cursos/matematica/orden/ascendente` | Cursos ordenados ascendente |
-| GET | `/cursos/matematica/orden/descendente` | Cursos ordenados descendente |
-| GET | `/cursos/matematica/niveles` | Niveles permitidos |
+| `GET` | `/cursos` | Obtener todos los cursos |
+| `POST` | `/cursos` | Crear nuevo curso |
+| `GET` | `/cursos/:id` | Obtener curso por ID |
+| `PUT` | `/cursos/:id` | Actualizar curso |
+| `DELETE` | `/cursos/:id` | Eliminar curso |
+| `GET` | `/cursos/orden/ascendente` | Cursos ordenados por visitas ascendente |
+| `GET` | `/cursos/orden/descendente` | Cursos ordenados por visitas descendente |
+| `GET` | `/cursos/niveles` | Obtener niveles permitidos |
+
+## Cursos Predefinidos (Matemáticas)
+La API incluye 8 cursos de matemáticas listos para usar:
+1. Álgebra Lineal
+2. Cálculo Diferencial
+3. Cálculo Integral
+4. Geometría Analítica
+5. Ecuaciones Diferenciales
+6. Probabilidad y Estadística
+7. Matemáticas Discretas
+8. Análisis Numérico
 
 ## Ejemplos de Uso
 
-### Crear un nuevo curso (POST)
+### Crear un nuevo curso de Física
 ```bash
-curl -X POST http://localhost:3000/cursos/matematica \
-  -H "Content-Type: application/json" \
-  -d '{
-    "titulo": "Ecuaciones Diferenciales",
-    "descripcion": "Solución de ecuaciones diferenciales ordinarias",
-    "vistas": 2500,
-    "nivel": "Avanzado"
-  }'
-```
+POST /cursos
+Content-Type: application/json
 
-**Respuesta exitosa (201 Created):**
-```json
 {
-  "id": 4,
-  "titulo": "Ecuaciones Diferenciales",
-  "descripcion": "Solución de ecuaciones diferenciales ordinarias",
+  "titulo": "Mecánica Cuántica",
+  "descripcion": "Principios básicos de la física cuántica",
   "vistas": 2500,
-  "nivel": "Avanzado"
+  "nivel": "Avanzado",
+  "materia": "Física"
 }
 ```
 
-### Actualizar un curso (PUT)
+### Actualizar las visitas de un curso
 ```bash
-curl -X PUT http://localhost:3000/cursos/matematica/4 \
-  -H "Content-Type: application/json" \
-  -d '{"vistas": 2800}'
-```
+PUT /cursos/1
+Content-Type: application/json
 
-### Obtener cursos ordenados (GET)
-```bash
-curl http://localhost:3000/cursos/matematica/orden/descendente
-```
-
-## Probar con Insomnia
-
-Sigue estos pasos para probar la API con Insomnia:
-
-1. **Crea una nueva colección** llamada "Cursos Matemáticas API"
-2. **Agrega las siguientes solicitudes**:
-
-### Solicitud 1: Obtener todos los cursos
-- **Método**: GET
-- **URL**: `http://localhost:3000/cursos/matematica`
-
-### Solicitud 2: Crear nuevo curso
-- **Método**: POST
-- **URL**: `http://localhost:3000/cursos/matematica`
-- **Headers**: `Content-Type: application/json`
-- **Body**:
-```json
-{
-  "titulo": "Probabilidad Básica",
-  "descripcion": "Introducción a la teoría de probabilidades",
-  "vistas": 1200,
-  "nivel": "Intermedio"
-}
-```
-
-### Solicitud 3: Actualizar curso
-- **Método**: PUT
-- **URL**: `http://localhost:3000/cursos/matematica/1`
-- **Headers**: `Content-Type: application/json`
-- **Body**:
-```json
 {
   "vistas": 1800
 }
 ```
 
-### Solicitud 4: Eliminar curso
-- **Método**: DELETE
-- **URL**: `http://localhost:3000/cursos/matematica/1`
-
-### Solicitud 5: Probar validación (error)
-- **Método**: POST
-- **URL**: `http://localhost:3000/cursos/matematica`
-- **Headers**: `Content-Type: application/json`
-- **Body**:
+### Respuesta exitosa (200 OK)
 ```json
 {
-  "titulo": "A",
-  "descripcion": "Corta",
-  "vistas": -100,
-  "nivel": "Fácil"
+  "id": 1,
+  "titulo": "Álgebra Lineal",
+  "descripcion": "Vectores, matrices y transformaciones lineales",
+  "vistas": 1800,
+  "nivel": "Intermedio",
+  "materia": "Matemáticas"
 }
 ```
 
-**Respuesta de error (400 Bad Request):**
+## Proceso Paso a Paso para Probar con Insomnia
+
+### Paso 1: Instalar Insomnia
+Descargar e instalar desde [https://insomnia.rest](https://insomnia.rest)
+
+### Paso 2: Importar la colección de pruebas
+1. Crear nuevo workspace llamado "Gestión de Cursos API"
+2. Importar la siguiente colección:
+
+```json
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_source": "insomnia.desktop.app:v2023.5.8",
+  "resources": [
+    {
+      "_id": "req_1",
+      "name": "Obtener todos los cursos",
+      "method": "GET",
+      "url": "http://localhost:3000/cursos"
+    },
+    {
+      "_id": "req_2",
+      "name": "Crear curso de Física",
+      "method": "POST",
+      "url": "http://localhost:3000/cursos",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n \"titulo\": \"Mecánica Clásica\",\n \"descripcion\": \"Leyes de Newton y movimiento planetario\",\n \"vistas\": 2200,\n \"nivel\": \"Avanzado\",\n \"materia\": \"Física\"\n}"
+      }
+    },
+    {
+      "_id": "req_3",
+      "name": "Obtener curso específico",
+      "method": "GET",
+      "url": "http://localhost:3000/cursos/1"
+    },
+    {
+      "_id": "req_4",
+      "name": "Actualizar curso",
+      "method": "PUT",
+      "url": "http://localhost:3000/cursos/1",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n \"vistas\": 1800\n}"
+      }
+    },
+    {
+      "_id": "req_5",
+      "name": "Eliminar curso",
+      "method": "DELETE",
+      "url": "http://localhost:3000/cursos/9"
+    },
+    {
+      "_id": "req_6",
+      "name": "Cursos orden descendente",
+      "method": "GET",
+      "url": "http://localhost:3000/cursos/orden/descendente"
+    },
+    {
+      "_id": "req_7",
+      "name": "Prueba validación (error)",
+      "method": "POST",
+      "url": "http://localhost:3000/cursos",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n \"titulo\": \"EC\",\n \"descripcion\": \"Corta\",\n \"vistas\": -100,\n \"nivel\": \"Fácil\",\n \"materia\": \"\"\n}"
+      }
+    }
+  ]
+}
+```
+
+### Paso 3: Secuencia de pruebas recomendada
+
+1. **Obtener todos los cursos**  
+   - Verificar los 8 cursos de matemáticas predefinidos
+   - Método: GET  
+   - URL: `http://localhost:3000/cursos`
+
+2. **Crear un nuevo curso de Física**  
+   - Método: POST  
+   - URL: `http://localhost:3000/cursos`  
+   - Body (JSON):
+     ```json
+     {
+       "titulo": "Termodinámica",
+       "descripcion": "Leyes de la termodinámica y sus aplicaciones",
+       "vistas": 1800,
+       "nivel": "Avanzado",
+       "materia": "Física"
+     }
+     ```
+
+3. **Crear un nuevo curso de Literatura**  
+   - Método: POST  
+   - URL: `http://localhost:3000/cursos`  
+   - Body (JSON):
+     ```json
+     {
+       "titulo": "Literatura del Siglo de Oro",
+       "descripcion": "Análisis de obras clásicas españolas",
+       "vistas": 1200,
+       "nivel": "Intermedio",
+       "materia": "Literatura"
+     }
+     ```
+
+4. **Actualizar un curso existente**  
+   - Método: PUT  
+   - URL: `http://localhost:3000/cursos/1`  
+   - Body (JSON):
+     ```json
+     {
+       "vistas": 2000
+     }
+     ```
+
+5. **Obtener cursos ordenados por visitas**  
+   - Método: GET  
+   - URL: `http://localhost:3000/cursos/orden/descendente`
+
+6. **Eliminar un curso**  
+   - Método: DELETE  
+   - URL: `http://localhost:3000/cursos/9` (ID del curso creado)
+
+7. **Probar validaciones**  
+   - Intentar crear un curso con datos inválidos
+   - Verificar mensajes de error
+
+### Paso 4: Probar validaciones
+Intente crear un curso con datos incompletos o inválidos para ver los mensajes de error:
+
+```json
+{
+  "titulo": "EC",
+  "descripcion": "Corta",
+  "vistas": -100,
+  "nivel": "Fácil",
+  "materia": ""
+}
+```
+
+**Respuesta de error esperada (400 Bad Request):**
 ```json
 {
   "error": {
@@ -159,44 +281,41 @@ Sigue estos pasos para probar la API con Insomnia:
       "titulo": "El título debe tener al menos 5 caracteres",
       "descripcion": "La descripción debe tener al menos 10 caracteres",
       "vistas": "Las vistas no pueden ser negativas",
-      "nivel": "Nivel inválido. Valores permitidos: Principiante, Intermedio, Avanzado"
+      "nivel": "Nivel inválido. Valores permitidos: Principiante, Intermedio, Avanzado",
+      "materia": "La materia es obligatoria"
     }
   }
 }
 ```
 
-## Estructura del Proyecto
-```
-proyecto-cursos/
-├── controllers/ # Lógica de controladores
-├── middlewares/ # Middlewares personalizados
-├── models/ # Modelos de datos
-├── routes/ # Definición de rutas
-├── utils/ # Funciones utilitarias
-├── server.js # Punto de entrada
-├── package.json # Dependencias
-└── README.md # Este archivo
-```
-
-## Validación de Datos
-La API valida todos los datos recibidos:
+## Validación de Datos  
+Todos los cursos deben cumplir con estas reglas:
 
 | Campo | Requerido | Tipo | Restricciones |
 |--------------|-----------|-----------|----------------------------------------|
 | `titulo` | Sí | String | Mínimo 5 caracteres |
 | `descripcion`| Sí | String | Mínimo 10 caracteres |
 | `vistas` | Sí | Integer | Número entero positivo |
-| `nivel` | Sí | String | Principiante, Intermedio o Avanzado |
+| `nivel` | Sí | String | Valores: Principiante, Intermedio, Avanzado |
+| `materia` | Sí | String | Mínimo 3 caracteres |
 
-## Contribución
-1. Haz fork del repositorio
-2. Crea una rama: `git checkout -b mi-nueva-feature`
-3. Haz commit de tus cambios: `git commit -m 'Agrega nueva feature'`
-4. Haz push a la rama: `git push origin mi-nueva-feature`
-5. Abre un Pull Request
+## Cómo Contribuir  
+1. Haz fork del repositorio  
+2. Crea tu rama: `git checkout -b mi-nueva-feature`  
+3. Realiza tus cambios y commitea: `git commit -m 'Agrega nueva feature'`  
+4. Haz push a la rama: `git push origin mi-nueva-feature`  
+5. Abre un Pull Request en GitHub  
+
+**Recomendaciones:**  
+- Mantén el estilo de código consistente  
+- Añade pruebas para nuevas funcionalidades  
+- Documenta los cambios importantes  
+
+
 
 ## Authors
 
 > [Carlos Perez] ([Carloseduardo27](https://github.com/Carloseduardo27))
 > [] ([]())
 > [] ([]())
+

@@ -4,40 +4,19 @@ import {
   sortByViewsDescending,
 } from '../utils/sortUtils.js';
 
-// Temas matemáticos definidos directamente
-const temasMatematicos = [
-  'álgebra',
-  'cálculo',
-  'geometría',
-  'trigonometría',
-  'estadística',
-  'ecuaciones',
-  'matemática',
-  'matemáticas',
-];
-
-// Función para filtrar cursos matemáticos
-const filtrarCursosMatematicos = (cursos) => {
-  return cursos.filter((curso) => {
-    const titulo = curso.titulo.toLowerCase();
-    return temasMatematicos.some((tema) => titulo.includes(tema));
-  });
-};
-
 export default {
-  // Obtener todos los cursos matemáticos
-  getCursosMatematicos: (req, res, next) => {
+  // Obtener todos los cursos
+  getCursos: (req, res, next) => {
     try {
       const cursos = cursoModel.getAll();
-      const cursosMatematicos = filtrarCursosMatematicos(cursos);
-      res.json(cursosMatematicos);
+      res.json(cursos);
     } catch (error) {
       next(error);
     }
   },
 
-  // Obtener curso matemático por ID
-  getCursoMatematicoById: (req, res, next) => {
+  // Obtener curso por ID
+  getCursoById: (req, res, next) => {
     try {
       const curso = cursoModel.getById(req.params.id);
       res.json(curso);
@@ -46,8 +25,8 @@ export default {
     }
   },
 
-  // Crear nuevo curso matemático
-  createCursoMatematico: (req, res, next) => {
+  // Crear nuevo curso
+  createCurso: (req, res, next) => {
     try {
       const newCurso = cursoModel.create(req.body);
       res.status(201).json(newCurso);
@@ -56,8 +35,8 @@ export default {
     }
   },
 
-  // Actualizar curso matemático
-  updateCursoMatematico: (req, res, next) => {
+  // Actualizar curso
+  updateCurso: (req, res, next) => {
     try {
       const updatedCurso = cursoModel.update(req.params.id, req.body);
       res.json(updatedCurso);
@@ -66,8 +45,8 @@ export default {
     }
   },
 
-  // Eliminar curso matemático
-  deleteCursoMatematico: (req, res, next) => {
+  // Eliminar curso
+  deleteCurso: (req, res, next) => {
     try {
       const deletedCurso = cursoModel.delete(req.params.id);
       res.json({
@@ -83,8 +62,7 @@ export default {
   getCursosOrdenAscendente: (req, res, next) => {
     try {
       const cursos = cursoModel.getAll();
-      const cursosMatematicos = filtrarCursosMatematicos(cursos);
-      res.json(sortByViewsAscending(cursosMatematicos));
+      res.json(sortByViewsAscending(cursos));
     } catch (error) {
       next(error);
     }
@@ -94,8 +72,7 @@ export default {
   getCursosOrdenDescendente: (req, res, next) => {
     try {
       const cursos = cursoModel.getAll();
-      const cursosMatematicos = filtrarCursosMatematicos(cursos);
-      res.json(sortByViewsDescending(cursosMatematicos));
+      res.json(sortByViewsDescending(cursos));
     } catch (error) {
       next(error);
     }
