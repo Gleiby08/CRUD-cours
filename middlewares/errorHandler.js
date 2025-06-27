@@ -1,8 +1,6 @@
 const errorHandler = (err, req, res, next) => {
-  // Establecer código de estado predeterminado
   const statusCode = err.status || 500;
 
-  // Registrar el error
   console.error(
     `[${new Date().toISOString()}] Error ${statusCode}: ${err.message}`
   );
@@ -10,7 +8,6 @@ const errorHandler = (err, req, res, next) => {
     console.error(err.stack);
   }
 
-  // Respuesta al cliente
   res.status(statusCode).json({
     error: {
       status: statusCode,
