@@ -198,5 +198,5 @@ La API valida todos los datos recibidos:
 ## Authors
 
 > [Carlos Perez] ([Carloseduardo27](https://github.com/Carloseduardo27))
-> [] ([]())
+> [Gleiby Barreto] ([Gleiby08](https://github.com/Gleiby08))
 > [] ([]())
